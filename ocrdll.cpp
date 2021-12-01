@@ -1,5 +1,11 @@
 #include "ocrdll.h"
+#include <iostream>
 
-Ocrdll::Ocrdll()
+
+
+int getFuu(int x, int y)
 {
+    std::cout<<x+y<<std::endl;
+    return x+y;
+
 }

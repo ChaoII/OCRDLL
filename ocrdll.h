@@ -3,10 +3,21 @@
 
 #include "ocrdll_global.h"
 
-class OCRDLL_EXPORT Ocrdll
+#ifdef __cplusplus
+
+extern "C"
 {
-public:
-    Ocrdll();
-};
+#endif
+    // 写自己的逻辑
+    OCRDLL_EXPORT int getFuu(int x,int y);
+
+
+
+
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // OCRDLL_H
