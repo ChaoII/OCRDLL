@@ -14,8 +14,8 @@ QMAKE_CFLAGS_RELEASE += -MT
 QMAKE_CXXFLAGS_RELEASE += -MT
 
 SOURCES += \
-    include/clipper.cpp \
-    ocrdll.cpp \
+    src/clipper.cpp \
+    src/ocrdll.cpp \
     src/ocr_cls.cpp \
     src/ocr_det.cpp \
     src/ocr_main.cpp \
@@ -35,8 +35,8 @@ HEADERS += \
     include/postprocess_op.h \
     include/preprocess_op.h \
     include/utility.h \
-    ocrdll_global.h \
-    ocrdll.h
+    include/ocrdll_global.h \
+    include/ocrdll.h
 
 # Default rules for deployment.
 unix {
