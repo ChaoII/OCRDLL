@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "ocrdll/pch.h"
 #include <include/ocr_cls.h>
 
 namespace PaddleOCR {

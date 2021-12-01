@@ -16,10 +16,10 @@ CXX           = cl
 DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DOCRDLL_LIBRARY -DQT_CORE_LIB -D_WINDLL
 CFLAGS        = -nologo -Zc:wchar_t -FS -Zc:strictStrings -Zi -MDd -utf-8 -W3 -w44456 -w44457 -w44458 /Fddebug\ocrdll.vc.pdb $(DEFINES)
 CXXFLAGS      = -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -Zi -MDd -std:c++17 -utf-8 -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -EHsc /Fddebug\ocrdll.vc.pdb $(DEFINES)
-INCPATH       = -I..\..\ocrdll -I. -I..\..\..\Qt6.2\6.2.0\msvc2019_64\include -I..\..\..\Qt6.2\6.2.0\msvc2019_64\include\QtCore -Idebug -I..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\win32-msvc 
+INCPATH       = -I..\..\ocrdll -I. -I..\include -I..\paddle_inference\paddle\include -I..\paddle_inference\third_party\install\cryptopp\include -I..\paddle_inference\third_party\install\gflags\include -I..\paddle_inference\third_party\install\glog\include -I..\paddle_inference\third_party\install\mkldnn\include -I..\paddle_inference\third_party\install\mklml\include -I..\paddle_inference\third_party\install\protobuf\include -I..\paddle_inference\third_party\install\xxhash\include -I..\paddle_inference\third_party\install\opencv\include -I..\paddle_inference\third_party\install\mklml\include -I..\..\..\Qt6.2\6.2.0\msvc2019_64\include -I..\..\..\Qt6.2\6.2.0\msvc2019_64\include\QtCore -Idebug -I..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\win32-msvc 
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /DLL /SUBSYSTEM:WINDOWS
-LIBS          = D:\Qt6.2\6.2.0\msvc2019_64\lib\Qt6Cored.lib   
+LIBS          = /LIBPATH:D:\QtCreatorProjects\ocrdll\paddle_inference\paddle\lib D:\QtCreatorProjects\ocrdll\paddle_inference\paddle\lib\paddle_inference.lib /LIBPATH:D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\cryptopp\lib D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\cryptopp\lib\cryptopp-static.lib /LIBPATH:D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\gflags\lib D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\gflags\lib\gflags_static.lib /LIBPATH:D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\glog\lib D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\glog\lib\glog.lib /LIBPATH:D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\mkldnn\lib D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\mkldnn\lib\mkldnn.lib /LIBPATH:D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\mklml\lib D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\mklml\lib\mklml.lib /LIBPATH:D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\protobuf\lib D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\protobuf\lib\libprotobuf.lib /LIBPATH:D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\xxhash\lib D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\xxhash\lib\xxhash.lib /LIBPATH:D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\opencv\lib D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\opencv\lib\opencv_world451.lib D:\QtCreatorProjects\ocrdll\paddle_inference\third_party\install\mklml\lib\libiomp5md.lib D:\Qt6.2\6.2.0\msvc2019_64\lib\Qt6Cored.lib   
 QMAKE         = D:\Qt6.2\6.2.0\msvc2019_64\bin\qmake.exe
 DEL_FILE      = del
 CHK_DIR_EXISTS= if not exist
@@ -50,11 +50,42 @@ OBJECTS_DIR   = debug
 
 ####### Files
 
-SOURCES       = ..\ocrdll.cpp 
-OBJECTS       = debug\ocrdll.obj
+SOURCES       = ..\ocrdll.cpp \
+		..\src\ocr_cls.cpp \
+		..\src\ocr_det.cpp \
+		..\src\ocr_main.cpp \
+		..\src\ocr_rec.cpp \
+		..\src\postprocess_op.cpp \
+		..\src\preprocess_op.cpp \
+		..\src\utility.cpp 
+OBJECTS       = debug\ocrdll.obj \
+		debug\ocr_cls.obj \
+		debug\ocr_det.obj \
+		debug\ocr_main.obj \
+		debug\ocr_rec.obj \
+		debug\postprocess_op.obj \
+		debug\preprocess_op.obj \
+		debug\utility.obj
 
-DIST          =  ..\ocrdll_global.h \
-		..\ocrdll.h ..\ocrdll.cpp
+DIST          =  ..\include\autolog.h \
+		..\include\clipper.h \
+		..\include\dirent.h \
+		..\include\ocr_cls.h \
+		..\include\ocr_det.h \
+		..\include\ocr_main.h \
+		..\include\ocr_rec.h \
+		..\include\postprocess_op.h \
+		..\include\preprocess_op.h \
+		..\include\utility.h \
+		..\ocrdll_global.h \
+		..\ocrdll.h ..\ocrdll.cpp \
+		..\src\ocr_cls.cpp \
+		..\src\ocr_det.cpp \
+		..\src\ocr_main.cpp \
+		..\src\ocr_rec.cpp \
+		..\src\postprocess_op.cpp \
+		..\src\preprocess_op.cpp \
+		..\src\utility.cpp
 QMAKE_TARGET  = ocrdll
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = ocrdll.dll
@@ -80,6 +111,26 @@ DESTDIR_TARGET = debug\ocrdll.dll
 <<
 
 {..}.c{debug\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{..\src}.cpp{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{..\src}.cc{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{..\src}.cxx{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{..\src}.c{debug\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
@@ -111,7 +162,7 @@ all: Makefile.Debug  debug\ocrdll.dll
 
 debug\ocrdll.dll: D:\Qt6.2\6.2.0\msvc2019_64\lib\Qt6Cored.lib $(OBJECTS) 
 	$(LINKER) $(LFLAGS) /MANIFEST:embed /OUT:$(DESTDIR_TARGET) @<<
-debug\ocrdll.obj
+debug\ocrdll.obj debug\ocr_cls.obj debug\ocr_det.obj debug\ocr_main.obj debug\ocr_rec.obj debug\postprocess_op.obj debug\preprocess_op.obj debug\utility.obj
 $(LIBS)
 <<
 
@@ -121,10 +172,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) ocrdll.zip $(SOURCES) $(DIST) ..\ocrdll.pro ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\spec_pre.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\common\windows-desktop.conf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\win32\windows_vulkan_sdk.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\common\windows-vulkan.conf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\common\msvc-desktop.conf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\qconfig.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_ext_freetype.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_ext_libpng.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3danimation.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3danimation_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dcore.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dcore_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dextras.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dextras_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dinput.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dinput_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dlogic.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dlogic_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquick.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickanimation.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickextras.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickextras_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickinput.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickinput_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickrender.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickrender_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickscene2d.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3drender.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3drender_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_charts.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_charts_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_chartsqml.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_chartsqml_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_core.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_core_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_datavisualization.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_datavisualization_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_dbus.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_designer.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_entrypoint_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_fb_support_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_gui.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_help.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_help_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labsanimation.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labsanimation_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labssettings.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labssettings_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_linguist.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_linguist_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_multimediaquick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_network.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_network_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_nfc.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_opengl.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_positioning.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_positioningquick.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_positioningquick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qml.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcore.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcore_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmldom_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3d.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3d_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetimport.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetimport_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetutils.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetutils_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3deffects.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3deffects_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dhelpers.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dhelpers_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3diblbaker.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3diblbaker_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dparticles.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dparticles_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3druntimerender.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3druntimerender_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dutils.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dutils_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickshapes_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quicktimeline.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quicktimeline_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjects.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjects_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjectsqml.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjectsqml_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_repparser.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_repparser_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_sensors.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_sensorsquick.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_sensorsquick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_serialbus.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_serialbus_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_serialport.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_shadertools.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_shadertools_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_sql.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_svg.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_testlib.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_tools_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_uitools.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginecore.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginecore_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequick.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequickdelegatesqml.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequickdelegatesqml_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginewidgets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_websockets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_websockets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webview.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webview_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webviewquick.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webviewquick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_widgets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_xml.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_zlib_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\qt_functions.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\qt_config.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\win32-msvc\qmake.conf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\exclusive_builds.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\common\msvc-version.conf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\toolchain.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\default_pre.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\win32\default_pre.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\resolve_config.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\exclusive_builds_post.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\default_post.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\build_pass.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\qtquickcompiler.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\entrypoint.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\precompile_header.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\warn_on.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\qt.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\resources_functions.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\resources.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\moc.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\qmake_use.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\file_copies.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\win32\windows.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\testcase_targets.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\exceptions.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\yacc.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\lex.prf ..\ocrdll.pro ..\..\..\Qt6.2\6.2.0\msvc2019_64\lib\Qt6Cored.prl    ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\data\dummy.cpp ..\ocrdll_global.h ..\ocrdll.h  ..\ocrdll.cpp    
+	$(ZIP) ocrdll.zip $(SOURCES) $(DIST) ..\ocrdll.pro ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\spec_pre.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\common\windows-desktop.conf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\win32\windows_vulkan_sdk.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\common\windows-vulkan.conf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\common\msvc-desktop.conf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\qconfig.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_ext_freetype.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_ext_libpng.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3danimation.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3danimation_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dcore.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dcore_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dextras.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dextras_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dinput.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dinput_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dlogic.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dlogic_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquick.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickanimation.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickextras.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickextras_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickinput.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickinput_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickrender.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickrender_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickscene2d.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3drender.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_3drender_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_charts.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_charts_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_chartsqml.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_chartsqml_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_core.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_core_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_datavisualization.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_datavisualization_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_dbus.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_designer.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_entrypoint_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_fb_support_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_gui.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_help.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_help_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labsanimation.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labsanimation_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labssettings.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labssettings_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_linguist.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_linguist_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_multimediaquick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_network.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_network_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_nfc.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_opengl.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_positioning.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_positioningquick.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_positioningquick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qml.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcore.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcore_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmldom_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3d.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3d_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetimport.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetimport_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetutils.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetutils_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3deffects.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3deffects_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dhelpers.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dhelpers_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3diblbaker.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3diblbaker_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dparticles.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dparticles_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3druntimerender.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3druntimerender_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dutils.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dutils_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickshapes_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quicktimeline.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quicktimeline_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjects.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjects_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjectsqml.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjectsqml_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_repparser.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_repparser_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_sensors.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_sensorsquick.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_sensorsquick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_serialbus.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_serialbus_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_serialport.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_shadertools.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_shadertools_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_sql.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_svg.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_testlib.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_tools_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_uitools.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginecore.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginecore_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequick.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequickdelegatesqml.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequickdelegatesqml_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginewidgets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_websockets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_websockets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webview.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webview_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webviewquick.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_webviewquick_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_widgets.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_xml.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\modules\qt_lib_zlib_private.pri ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\qt_functions.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\qt_config.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\win32-msvc\qmake.conf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\exclusive_builds.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\common\msvc-version.conf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\toolchain.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\default_pre.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\win32\default_pre.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\resolve_config.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\exclusive_builds_post.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\default_post.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\build_pass.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\qtquickcompiler.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\entrypoint.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\precompile_header.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\warn_on.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\qt.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\resources_functions.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\resources.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\moc.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\qmake_use.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\file_copies.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\win32\windows.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\testcase_targets.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\exceptions.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\yacc.prf ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\lex.prf ..\ocrdll.pro ..\..\..\Qt6.2\6.2.0\msvc2019_64\lib\Qt6Cored.prl    ..\..\..\Qt6.2\6.2.0\msvc2019_64\mkspecs\features\data\dummy.cpp ..\include\autolog.h ..\include\clipper.h ..\include\dirent.h ..\include\ocr_cls.h ..\include\ocr_det.h ..\include\ocr_main.h ..\include\ocr_rec.h ..\include\postprocess_op.h ..\include\preprocess_op.h ..\include\utility.h ..\ocrdll_global.h ..\ocrdll.h  ..\include\clipper.cpp ..\ocrdll.cpp ..\src\ocr_cls.cpp ..\src\ocr_det.cpp ..\src\ocr_main.cpp ..\src\ocr_rec.cpp ..\src\postprocess_op.cpp ..\src\preprocess_op.cpp ..\src\utility.cpp    
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\ocrdll.obj
+	-$(DEL_FILE) debug\ocrdll.obj debug\ocr_cls.obj debug\ocr_det.obj debug\ocr_main.obj debug\ocr_rec.obj debug\postprocess_op.obj debug\preprocess_op.obj debug\utility.obj
 	-$(DEL_FILE) debug\ocrdll.exp debug\ocrdll.vc.pdb debug\ocrdll.ilk debug\ocrdll.idb
 
 distclean: clean 
@@ -189,7 +240,355 @@ debug\ocrdll.obj: ..\ocrdll.cpp ..\ocrdll.h \
 		..\..\..\..\Qt6.2\6.2.0\msvc2019_64\include\QtCore\qatomic_cxx11.h \
 		..\..\..\..\Qt6.2\6.2.0\msvc2019_64\include\QtCore\qglobalstatic.h \
 		..\..\..\..\Qt6.2\6.2.0\msvc2019_64\include\QtCore\qnumeric.h \
-		..\..\..\..\Qt6.2\6.2.0\msvc2019_64\include\QtCore\qversiontagging.h
+		..\..\..\..\Qt6.2\6.2.0\msvc2019_64\include\QtCore\qversiontagging.h \
+		..\include\ocr_main.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvdef.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\interface.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_dispatch.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_helper.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\msa_macros.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\fast_math.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\version.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\base.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\opencv_modules.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd_wrapper.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\neon_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\vsx_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\check.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\traits.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\matx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\saturate.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\types.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\bufferpool.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\persistence.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\operations.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utility.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\instrumentation.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\tls.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\optim.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\ovx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgcodecs.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgproc.hpp \
+		..\include\ocr_det.h \
+		..\paddle_inference\paddle\include\paddle_api.h \
+		..\paddle_inference\paddle\include\crypto\cipher.h \
+		..\paddle_inference\paddle\include\paddle_infer_declare.h \
+		..\paddle_inference\paddle\include\paddle_tensor.h \
+		..\paddle_inference\paddle\include\paddle_inference_api.h \
+		..\paddle_inference\paddle\include\paddle_analysis_config.h \
+		..\paddle_inference\paddle\include\paddle_pass_builder.h \
+		..\paddle_inference\paddle\include\paddle_mkldnn_quantizer_config.h \
+		..\include\postprocess_op.h \
+		..\include\clipper.h \
+		..\include\utility.h \
+		..\include\preprocess_op.h \
+		..\include\ocr_cls.h \
+		..\include\ocr_rec.h
+
+debug\ocr_cls.obj: ..\src\ocr_cls.cpp ..\include\ocr_cls.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvdef.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\interface.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_dispatch.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_helper.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\msa_macros.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\fast_math.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\version.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\base.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\opencv_modules.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd_wrapper.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\neon_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\vsx_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\check.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\traits.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\matx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\saturate.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\types.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\bufferpool.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\persistence.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\operations.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utility.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\instrumentation.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\tls.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\optim.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\ovx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgcodecs.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgproc.hpp \
+		..\paddle_inference\paddle\include\paddle_api.h \
+		..\paddle_inference\paddle\include\crypto\cipher.h \
+		..\paddle_inference\paddle\include\paddle_infer_declare.h \
+		..\paddle_inference\paddle\include\paddle_tensor.h \
+		..\paddle_inference\paddle\include\paddle_inference_api.h \
+		..\paddle_inference\paddle\include\paddle_analysis_config.h \
+		..\paddle_inference\paddle\include\paddle_pass_builder.h \
+		..\paddle_inference\paddle\include\paddle_mkldnn_quantizer_config.h \
+		..\include\preprocess_op.h \
+		..\include\utility.h
+
+debug\ocr_det.obj: ..\src\ocr_det.cpp ..\include\ocr_det.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvdef.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\interface.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_dispatch.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_helper.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\msa_macros.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\fast_math.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\version.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\base.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\opencv_modules.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd_wrapper.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\neon_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\vsx_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\check.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\traits.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\matx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\saturate.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\types.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\bufferpool.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\persistence.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\operations.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utility.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\instrumentation.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\tls.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\optim.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\ovx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgcodecs.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgproc.hpp \
+		..\paddle_inference\paddle\include\paddle_api.h \
+		..\paddle_inference\paddle\include\crypto\cipher.h \
+		..\paddle_inference\paddle\include\paddle_infer_declare.h \
+		..\paddle_inference\paddle\include\paddle_tensor.h \
+		..\paddle_inference\paddle\include\paddle_inference_api.h \
+		..\paddle_inference\paddle\include\paddle_analysis_config.h \
+		..\paddle_inference\paddle\include\paddle_pass_builder.h \
+		..\paddle_inference\paddle\include\paddle_mkldnn_quantizer_config.h \
+		..\include\postprocess_op.h \
+		..\include\clipper.h \
+		..\include\utility.h \
+		..\include\preprocess_op.h
+
+debug\ocr_main.obj: ..\src\ocr_main.cpp ..\include\ocr_main.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvdef.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\interface.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_dispatch.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_helper.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\msa_macros.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\fast_math.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\version.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\base.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\opencv_modules.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd_wrapper.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\neon_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\vsx_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\check.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\traits.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\matx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\saturate.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\types.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\bufferpool.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\persistence.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\operations.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utility.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\instrumentation.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\tls.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\optim.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\ovx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgcodecs.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgproc.hpp \
+		..\include\ocr_det.h \
+		..\paddle_inference\paddle\include\paddle_api.h \
+		..\paddle_inference\paddle\include\crypto\cipher.h \
+		..\paddle_inference\paddle\include\paddle_infer_declare.h \
+		..\paddle_inference\paddle\include\paddle_tensor.h \
+		..\paddle_inference\paddle\include\paddle_inference_api.h \
+		..\paddle_inference\paddle\include\paddle_analysis_config.h \
+		..\paddle_inference\paddle\include\paddle_pass_builder.h \
+		..\paddle_inference\paddle\include\paddle_mkldnn_quantizer_config.h \
+		..\include\postprocess_op.h \
+		..\include\clipper.h \
+		..\include\utility.h \
+		..\include\preprocess_op.h \
+		..\include\ocr_cls.h \
+		..\include\ocr_rec.h
+
+debug\ocr_rec.obj: ..\src\ocr_rec.cpp ..\include\ocr_rec.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvdef.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\interface.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_dispatch.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_helper.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\msa_macros.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\fast_math.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\version.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\base.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\opencv_modules.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd_wrapper.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\neon_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\vsx_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\check.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\traits.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\matx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\saturate.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\types.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\bufferpool.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\persistence.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\operations.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utility.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\instrumentation.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\tls.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\optim.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\ovx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgcodecs.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgproc.hpp \
+		..\paddle_inference\paddle\include\paddle_api.h \
+		..\paddle_inference\paddle\include\crypto\cipher.h \
+		..\paddle_inference\paddle\include\paddle_infer_declare.h \
+		..\paddle_inference\paddle\include\paddle_tensor.h \
+		..\paddle_inference\paddle\include\paddle_inference_api.h \
+		..\paddle_inference\paddle\include\paddle_analysis_config.h \
+		..\paddle_inference\paddle\include\paddle_pass_builder.h \
+		..\paddle_inference\paddle\include\paddle_mkldnn_quantizer_config.h \
+		..\include\ocr_cls.h \
+		..\include\preprocess_op.h \
+		..\include\utility.h \
+		..\include\postprocess_op.h \
+		..\include\clipper.h
+
+debug\postprocess_op.obj: ..\src\postprocess_op.cpp ..\include\postprocess_op.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvdef.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\interface.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_dispatch.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_helper.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\msa_macros.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\fast_math.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\version.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\base.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\opencv_modules.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd_wrapper.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\neon_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\vsx_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\check.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\traits.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\matx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\saturate.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\types.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\bufferpool.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\persistence.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\operations.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utility.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\instrumentation.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\tls.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\optim.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\ovx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgcodecs.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgproc.hpp \
+		..\include\clipper.h \
+		..\include\utility.h \
+		..\include\clipper.cpp
+
+debug\preprocess_op.obj: ..\src\preprocess_op.cpp ..\paddle_inference\third_party\install\opencv\include\opencv2\core.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvdef.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\interface.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_dispatch.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_helper.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\msa_macros.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\fast_math.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\version.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\base.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\opencv_modules.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd_wrapper.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\neon_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\vsx_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\check.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\traits.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\matx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\saturate.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\types.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\bufferpool.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\persistence.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\operations.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utility.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\instrumentation.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\tls.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\optim.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\ovx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgcodecs.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgproc.hpp \
+		..\paddle_inference\paddle\include\paddle_api.h \
+		..\paddle_inference\paddle\include\crypto\cipher.h \
+		..\paddle_inference\paddle\include\paddle_infer_declare.h \
+		..\paddle_inference\paddle\include\paddle_tensor.h \
+		..\paddle_inference\paddle\include\paddle_inference_api.h \
+		..\paddle_inference\paddle\include\paddle_analysis_config.h \
+		..\paddle_inference\paddle\include\paddle_pass_builder.h \
+		..\paddle_inference\paddle\include\paddle_mkldnn_quantizer_config.h \
+		..\include\preprocess_op.h
+
+debug\utility.obj: ..\src\utility.cpp ..\include\dirent.h \
+		..\include\utility.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvdef.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\interface.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_dispatch.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cv_cpu_helper.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\hal\msa_macros.h \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\fast_math.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\version.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\base.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\opencv_modules.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd_wrapper.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\neon_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\vsx_utils.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\check.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\traits.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\matx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\saturate.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\types.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\bufferpool.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\mat.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\persistence.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\operations.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\cvstd.inl.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utility.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\instrumentation.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\utils\tls.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\optim.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\core\ovx.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgcodecs.hpp \
+		..\paddle_inference\third_party\install\opencv\include\opencv2\imgproc.hpp
 
 ####### Install
 

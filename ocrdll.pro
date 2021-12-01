@@ -9,6 +9,10 @@ CONFIG += c++11
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+
+QMAKE_CFLAGS_RELEASE += -MT
+QMAKE_CXXFLAGS_RELEASE += -MT
+
 SOURCES += \
     include/clipper.cpp \
     ocrdll.cpp \
@@ -26,6 +30,7 @@ HEADERS += \
     include/dirent.h \
     include/ocr_cls.h \
     include/ocr_det.h \
+    include/ocr_main.h \
     include/ocr_rec.h \
     include/postprocess_op.h \
     include/preprocess_op.h \
@@ -48,6 +53,7 @@ LIBS += -L$$PWD/paddle_inference/third_party/install/mklml/lib/ -lmklml
 LIBS += -L$$PWD/paddle_inference/third_party/install/protobuf/lib/ -llibprotobuf
 LIBS += -L$$PWD/paddle_inference/third_party/install/xxhash/lib/ -lxxhash
 LIBS += -L$$PWD/paddle_inference/third_party/install/opencv/lib/ -lopencv_world451
+LIBS += -L$$PWD/paddle_inference/third_party/install/mklml/lib/ -llibiomp5md
 
 INCLUDEPATH += $$PWD/include
 
@@ -94,3 +100,8 @@ DEPENDPATH += $$PWD/paddle_inference/third_party/install/xxhash/include
 
 INCLUDEPATH += $$PWD/paddle_inference/third_party/install/opencv/include
 DEPENDPATH += $$PWD/paddle_inference/third_party/install/opencv/include
+
+
+
+INCLUDEPATH += $$PWD/paddle_inference/third_party/install/mklml/include
+DEPENDPATH += $$PWD/paddle_inference/third_party/install/mklml/include
