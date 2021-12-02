@@ -100,14 +100,6 @@ void uninitModelSub() {
 RecResultArray ocr_pipline(const char* image_dir) {
 
 
-//    google::InitGoogleLogging("123");
-
-
-//    FLAGS_logbufsecs = 0;  //日志实时输出
-//    FLAGS_max_log_size=10; //最大日志文件大小 10M
-//    FLAGS_logtostderr = true; // 设置日志消息是否转到标准输出而不是日志文件
-//    FLAGS_colorlogtostderr = true; // 设置记录到标准输出的颜色消息（如果终端支持）
-//    FLAGS_alsologtostderr = true;
 
     std::vector<std::string> cv_all_img_names;
 
@@ -116,7 +108,6 @@ RecResultArray ocr_pipline(const char* image_dir) {
     auto start = std::chrono::system_clock::now();
 
     for (int i = 0; i < cv_all_img_names.size(); ++i) {
-
         cv::Mat srcimg = cv::imread(cv_all_img_names[i], cv::IMREAD_COLOR);
         if (!srcimg.data) {
             std::cerr << "[ERROR] image read failed! image path: " << cv_all_img_names[i] << std::endl;
@@ -127,11 +118,9 @@ RecResultArray ocr_pipline(const char* image_dir) {
         std::vector<double> rec_times;
 
         det->Run(srcimg, boxes, &det_times);
-//        LOG(INFO)<<"------------------------------------------";
-        std::cout<< "det前处理："<<det_times[0]<<std::endl;
-        std::cout<< "det推理："<<det_times[1]<<std::endl;
-        std::cout<< "det后处理："<<det_times[2]<<std::endl;
-        //------------------------数据声名----------------------
+        std::cout<< "det总耗时："<< std::accumulate(det_times.begin(),det_times.end(),0)<<"ms"<<std::endl;
+
+        //------------------------数据声明----------------------
         cv::Mat crop_img;
         std::vector<std::string> rec_strs;
         std::vector<double> rec_scores;
@@ -149,9 +138,8 @@ RecResultArray ocr_pipline(const char* image_dir) {
             rec_scores.push_back(score);
         }
 
-        std::cout<< "rec前处理："<<rec_times[0]<<std::endl;
-        std::cout<< "rec推理："<<rec_times[1]<<std::endl;
-        std::cout<< "rec后处理："<<rec_times[2]<<std::endl;
+        double t = std::accumulate(rec_times.begin(),rec_times.end(),0);
+        std::cout<<"rec总耗时："<< t <<"ms"<<std::endl;
 
         // ----------------------赋值-----------------------------
         RecResult re_sub;
@@ -182,7 +170,7 @@ RecResultArray ocr_pipline(const char* image_dir) {
         auto end = std::chrono::system_clock::now();
         auto duration =
                 std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-        std::cout << "总耗时  "
+        std::cout << "模型总耗时"
                   << double(duration.count()) *
                      std::chrono::microseconds::period::num /
                      std::chrono::microseconds::period::den

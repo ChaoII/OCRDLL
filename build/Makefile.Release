@@ -254,6 +254,13 @@ release\ocrdll.obj: ..\src\ocrdll.cpp ..\include\ocrdll.h \
 		..\paddle_inference\third_party\install\opencv\include\opencv2\core\ovx.hpp \
 		..\paddle_inference\third_party\install\opencv\include\opencv2\imgcodecs.hpp \
 		..\paddle_inference\third_party\install\opencv\include\opencv2\imgproc.hpp \
+		..\paddle_inference\third_party\install\glog\include\glog\logging.h \
+		..\paddle_inference\third_party\install\glog\include\glog\export.h \
+		..\paddle_inference\third_party\install\gflags\include\gflags\gflags.h \
+		..\paddle_inference\third_party\install\gflags\include\gflags\gflags_declare.h \
+		..\paddle_inference\third_party\install\gflags\include\gflags\gflags_gflags.h \
+		..\paddle_inference\third_party\install\glog\include\glog\log_severity.h \
+		..\paddle_inference\third_party\install\glog\include\glog\vlog_is_on.h \
 		..\include\ocr_det.h \
 		..\paddle_inference\paddle\include\paddle_api.h \
 		..\paddle_inference\paddle\include\crypto\cipher.h \
@@ -393,6 +400,13 @@ release\ocr_main.obj: ..\src\ocr_main.cpp ..\include\ocr_main.h \
 		..\paddle_inference\third_party\install\opencv\include\opencv2\core\ovx.hpp \
 		..\paddle_inference\third_party\install\opencv\include\opencv2\imgcodecs.hpp \
 		..\paddle_inference\third_party\install\opencv\include\opencv2\imgproc.hpp \
+		..\paddle_inference\third_party\install\glog\include\glog\logging.h \
+		..\paddle_inference\third_party\install\glog\include\glog\export.h \
+		..\paddle_inference\third_party\install\gflags\include\gflags\gflags.h \
+		..\paddle_inference\third_party\install\gflags\include\gflags\gflags_declare.h \
+		..\paddle_inference\third_party\install\gflags\include\gflags\gflags_gflags.h \
+		..\paddle_inference\third_party\install\glog\include\glog\log_severity.h \
+		..\paddle_inference\third_party\install\glog\include\glog\vlog_is_on.h \
 		..\include\ocr_det.h \
 		..\paddle_inference\paddle\include\paddle_api.h \
 		..\paddle_inference\paddle\include\crypto\cipher.h \

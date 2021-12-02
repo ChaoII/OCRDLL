@@ -79,7 +79,7 @@ void initModelSub(
         float det_db_box_thresh = 0.5,
         float det_db_unclip_ratio = 1.6,
         bool use_polygon_score = false,
-        bool visualize = true,
+        bool visualize = false,
         bool use_angle_cls = false,
         const char* cls_model_dir = "",
         float cls_thresh = 0.9,

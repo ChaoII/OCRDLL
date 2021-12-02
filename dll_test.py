@@ -110,7 +110,7 @@ ocr_pipline = api.dll_ocr_pipline
 ocr_pipline.argtypes = (c_char_p,)
 ocr_pipline.restype = RecResultArray
 
-RecResultArray = ocr_pipline(c_char_p("33.png".encode("utf8")))
+RecResultArray = ocr_pipline(c_char_p("43.png".encode("utf8")))
 nums = RecResultArray.res_nums
 
 for i in range(nums):
