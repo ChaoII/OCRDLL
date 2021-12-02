@@ -16,7 +16,8 @@
 
 namespace PaddleOCR {
 
-    void CRNNRecognizer::Run(cv::Mat& img, std::vector<double>* times) {
+    void CRNNRecognizer::Run(cv::Mat& img, std::vector<double>* times,
+                             std::string& rec_strs,double& rec_scores) {
         cv::Mat srcimg;
         img.copyTo(srcimg);
         cv::Mat resize_img;
@@ -56,6 +57,7 @@ namespace PaddleOCR {
         // ctc decode
         auto postprocess_start = std::chrono::steady_clock::now();
         std::vector<std::string> str_res;
+        std::string res  ="";
         int argmax_idx;
         int last_index = 0;
         float score = 0.f;
@@ -80,9 +82,11 @@ namespace PaddleOCR {
         auto postprocess_end = std::chrono::steady_clock::now();
         score /= count;
         for (int i = 0; i < str_res.size(); i++) {
-            std::cout << str_res[i];
+            res += std::string(str_res[i]);
         }
-        std::cout << "\tscore: " << score << std::endl;
+        // 赋值
+        rec_strs = res;
+        rec_scores = score;
 
         std::chrono::duration<float> preprocess_diff = preprocess_end - preprocess_start;
         times->push_back(double(preprocess_diff.count() * 1000));
