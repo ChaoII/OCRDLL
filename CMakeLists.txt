@@ -9,6 +9,7 @@ set(CMAKE_C_FLAGS_RELEASE "/MT")
 set(CMAKE_CXX_FLAGS_DEBUG "/MTd")
 set(CMAKE_C_FLAGS_DEBUG "/MTd")
 
+# 用的MSVC有该死的乱码情况,只能用该挫方法处理
 add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
 add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 
