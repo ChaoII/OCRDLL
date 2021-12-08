@@ -1,17 +1,4 @@
 #pragma once
-// Copyright (c) 2020 PaddlePaddle Authors. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
 
 #include <iostream>
 //#include "glog/logging.h"
@@ -27,64 +14,67 @@
 #include <fstream>
 #include <numeric>
 //#include <glog/logging.h>
-#include <include/ocr_det.h>
-#include <include/ocr_cls.h>
-#include <include/ocr_rec.h>
-#include <include/utility.h>
+#include <ocr_det.h>
+#include <ocr_cls.h>
+#include <ocr_rec.h>
+#include <utility.h>
 #include <sys/stat.h>
 
 //#include <gflags/gflags.h>
 //#include <auto_log/autolog.h>
 
 
-using namespace PaddleOCR;
-extern "C"{
-struct PointR{
-    int x;
-    int y;
-};
-struct BoxR{
-    PointR left_top;
-    PointR right_top;
-    PointR right_bottom;
-    PointR left_bottom;
-};
+//using namespace PaddleOCR;
+namespace PaddleOCR {
+    extern "C" {
+    struct PointR {
+        int x;
+        int y;
+    };
+    struct BoxR {
+        PointR left_top;
+        PointR right_top;
+        PointR right_bottom;
+        PointR left_bottom;
+    };
 
-struct RecResult{
-    const char* rec_str;
-    BoxR box;
-    double score;
-};
+    struct RecResult {
+        const char *rec_str;
+        BoxR box;
+        double score;
+    };
 
-struct RecResultArray{
-    RecResult* rec_res;
-    int res_nums;
-};
+    struct RecResultArray {
+        RecResult *rec_res;
+        int res_nums;
+    };
+    }
+
+    RecResultArray ocr_pipline(const char *image_dir);
+
+    void initModelSub(
+            const char *det_model_dir = "",
+            const char *rec_model_dir = "",
+            bool use_gpu = false,
+            int gpu_id = 0,
+            int gpu_mem = 4000,
+            int cpu_threads = 10,
+            bool enable_mkldnn = false,
+            bool use_tensorrt = false,
+            const char *precision = "fp32",
+            bool benchmark = true,
+            int max_side_len = 960,
+            float det_db_thresh = 0.3,
+            float det_db_box_thresh = 0.5,
+            float det_db_unclip_ratio = 1.6,
+            bool use_polygon_score = false,
+            bool visualize = false,
+            bool use_angle_cls = false,
+            const char *cls_model_dir = "",
+            float cls_thresh = 0.9,
+            int rec_batch_num = 1,
+            const char *char_list_file = "ppocr_keys_v1.txt"
+    );
+
+    void uninitModelSub();
 }
-RecResultArray ocr_pipline(const char* image_dir);
-
-void initModelSub(
-        const char* det_model_dir = "",
-        const char* rec_model_dir = "",
-        bool use_gpu = false,
-        int gpu_id = 0,
-        int gpu_mem = 4000,
-        int cpu_threads = 10,
-        bool enable_mkldnn = false,
-        bool use_tensorrt = false,
-        const char* precision = "fp32",
-        bool benchmark = true,
-        int max_side_len = 960,
-        float det_db_thresh = 0.3,
-        float det_db_box_thresh = 0.5,
-        float det_db_unclip_ratio = 1.6,
-        bool use_polygon_score = false,
-        bool visualize = false,
-        bool use_angle_cls = false,
-        const char* cls_model_dir = "",
-        float cls_thresh = 0.9,
-        int rec_batch_num = 1,
-        const char* char_list_file = "ppocr_keys_v1.txt"
-        );
-
-void uninitModelSub();
