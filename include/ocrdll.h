@@ -1,8 +1,13 @@
 #ifndef OCRDLL_H
 #define OCRDLL_H
 
-#include "ocrdll_global.h"
 #include "ocr_main.h"
+
+#ifndef OCRDLL_EXPORT
+#define OCRDLL_EXPORT __declspec(dllexport)
+#else
+#define OCRDLL_EXPORT __declspec(dllimport)
+#endif
 
 #ifdef __cplusplus
 
@@ -11,8 +16,7 @@ extern "C"
 #endif
     // 写自己的逻辑
 
-
-    OCRDLL_EXPORT RecResultArray dll_ocr_pipline(const char* image);
+    OCRDLL_EXPORT PaddleOCR::RecResultArray dll_ocr_pipline(const char* image);
 
     OCRDLL_EXPORT void dll_init_model(
             const char* det_model_dir ,
