@@ -3,13 +3,13 @@ namespace PaddleOCR {
 
     void CRNNRecognizer::Run(cv::Mat& img, std::vector<double>* times,
                              std::string& rec_strs,double& rec_scores) {
-        cv::Mat srcimg;
-        img.copyTo(srcimg);
+        cv::Mat src_img;
+        img.copyTo(src_img);
         cv::Mat resize_img;
 
-        float wh_ratio = float(srcimg.cols) / float(srcimg.rows);
+        float wh_ratio = float(src_img.cols) / float(src_img.rows);
         auto preprocess_start = std::chrono::steady_clock::now();
-        this->resize_op_.Run(srcimg, resize_img, wh_ratio, this->use_tensorrt_);
+        this->resize_op_.Run(src_img, resize_img, wh_ratio, this->use_tensorrt_);
 
         this->normalize_op_.Run(&resize_img, this->mean_, this->scale_,
             this->is_scale_);
@@ -121,16 +121,12 @@ namespace PaddleOCR {
             }
             config.SetCpuMathLibraryNumThreads(this->cpu_math_library_num_threads_);
         }
-
         config.SwitchUseFeedFetchOps(false);
         // true for multiple input
         config.SwitchSpecifyInputNames(true);
-
         config.SwitchIrOptim(true);
-
         config.EnableMemoryOptim();
         config.DisableGlogInfo();
-
         this->predictor_ = CreatePredictor(config);
     }
 
